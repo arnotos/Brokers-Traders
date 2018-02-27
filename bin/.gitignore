@@ -1,7 +1,12 @@
 /Client.class
 /ClientException.class
-/ServerException.class
-/Test.class
-/TCPClient.class
-/UserInterface.class
 /EchoService.class
+/ServerException.class
+/TCPClient.class
+/Test.class
+/UserInterface.class
+/TradeService.class
+/MultithreadedTCPServer.class
+/Offer.class
+/Action.class
+/Demand.class
