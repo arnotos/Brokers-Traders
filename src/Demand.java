@@ -1,3 +1,5 @@
+import java.net.Socket;
+
 /**
  * 
  */
@@ -14,8 +16,8 @@ public class Demand extends Action {
 	
 	
 	//constructor
-	public Demand(String actionLabel,  int quantity){
-		super();
+	public Demand(String actionLabel,  int quantity, TradeService client){
+		super(client);
 		this.actionLabel = actionLabel;
 		this.quantity = quantity;
 	}
