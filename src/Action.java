@@ -12,20 +12,20 @@ import java.net.Socket;
 
 public class Action {
 	private int id = 0;
-	Socket client;
+	TradeService client;
 	
-	public Action(Socket client) {
+	public Action(TradeService client) {
 		this.id++;
 		this.client = client;
 		//this.ip = ip;
 		//this.port = port;
 	}
 	
-	public Socket getClient() {
+	public TradeService getClient() {
 		return client;
 	}
 
-	public void setClient(Socket client) {
+	public void setClient(TradeService client) {
 		this.client = client;
 	}
 

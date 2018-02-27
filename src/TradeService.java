@@ -16,6 +16,7 @@ import java.util.Iterator;
  */	
 public class TradeService extends Thread{
     Socket client;
+	private Object toClient;
    
     
     TradeService(Socket client) {	  
@@ -38,12 +39,12 @@ public class TradeService extends Thread{
             while(stop){     // repeat as long as connection exists
             	
             	 line = fromClient.readLine();              // Read Request
-            	 String response = createOfferOrDemand(line,client);
+            	 String response = createOfferOrDemand(line);
                  System.out.println("Received: "+ line);
                  
                 
                 if (line.equals(".")) stop = false;   // Break Conneciton?
-                else if(response != null) toClient.writeBytes(response+"\n"); // Response
+                else if(response != null) this.responseToClient(response+"\n"); // Response
             }
             
             fromClient.close(); toClient.close(); client.close(); // End
@@ -54,14 +55,14 @@ public class TradeService extends Thread{
         }
     }
     
-    public String createOfferOrDemand(String line, Socket client) {
+    public String createOfferOrDemand(String line) {
     	String[] data = line.split("//");
     	if(data[1].equals("B") || data[1].equals("b")) {
-    		Action of = new Offer(data[2], Integer.parseInt(data[3]), client);
+    		Action of = new Offer(data[2], Integer.parseInt(data[3]), this);
     		MultithreadedTCPServer.offerList.add(of);
     		return runMechanism(of);
     	} else {
-    		Action de = new Demand(data[2], Integer.parseInt(data[3]), client);
+    		Action de = new Demand(data[2], Integer.parseInt(data[3]), this);
     		MultithreadedTCPServer.demandList.add(de);
     		return runMechanism(de);
     	}
@@ -73,36 +74,39 @@ public class TradeService extends Thread{
         	    Demand item = i.next();
         	    if(item.getActionLabel().equals(((Offer) act).getActionLabel())) {
         	    	try {
-						DataOutputStream toClient = new DataOutputStream (item.client.getOutputStream());
-						toClient.writeBytes("Waiting for : Successfully buy " + item.getActionLabel() + " shares.");
-					} catch (IOException e) {
+						((TradeService) item.client).responseToClient("Waiting for : Successfully sell " + item.getActionLabel() + " shares.");
+						MultithreadedTCPServer.demandList.remove(item);
+						this.responseToClient("Successfully sell " + ((Offer) act).getActionLabel() +" shares.");
+        	    	} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-        	    	
-        	    	MultithreadedTCPServer.demandList.remove(item);
-    				return "Successfully sell " + ((Offer) act).getActionLabel() +" shares.";
-    			}
+        	    }	
         	}
     	} else {
     		for (Iterator<Offer> i = MultithreadedTCPServer.offerList.iterator(); i.hasNext();) {
     			Offer item = i.next();
         	    if(item.getActionLabel().equals(((Demand) act).getActionLabel())) {
+						
         	    	try {
-						DataOutputStream toClient = new DataOutputStream (item.client.getOutputStream());
-						toClient.writeBytes("Waiting for : Successfully sell " + item.getActionLabel() + " shares.");
+        	    		((TradeService) item.client).responseToClient("Waiting for : Successfully sell " + item.getActionLabel() + " shares.");
+    					
+            	    	MultithreadedTCPServer.offerList.remove(item);
+						this.responseToClient("Successfully buy " + ((Demand) act).getActionLabel() +" shares.");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-        	    	MultithreadedTCPServer.offerList.remove(item);
-    				return "Successfully buy " + ((Offer) act).getActionLabel() +" shares.";
     			}
         	}
     	}
     	
     			
     	return null;
+    }
+    
+    public void responseToClient(String message) throws IOException {
+		((DataOutputStream) this.toClient).writeBytes(message);
     }
 	
 }
