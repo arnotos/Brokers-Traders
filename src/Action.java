@@ -1,3 +1,5 @@
+import java.net.Socket;
+
 /**
  * 
  */
@@ -10,12 +12,21 @@
 
 public class Action {
 	private int id = 0;
-	private String ip;
-	private int port;
+	Socket client;
 	
-	public Action() {
+	public Action(Socket client) {
 		this.id++;
+		this.client = client;
 		//this.ip = ip;
 		//this.port = port;
 	}
+	
+	public Socket getClient() {
+		return client;
+	}
+
+	public void setClient(Socket client) {
+		this.client = client;
+	}
+
 }

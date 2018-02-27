@@ -5,6 +5,7 @@
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.util.ArrayList;
@@ -37,12 +38,12 @@ public class TradeService extends Thread{
             while(stop){     // repeat as long as connection exists
             	
             	 line = fromClient.readLine();              // Read Request
-            	 String response = createOfferOrDemand(line);
+            	 String response = createOfferOrDemand(line,client);
                  System.out.println("Received: "+ line);
                  
                 
                 if (line.equals(".")) stop = false;   // Break Conneciton?
-                else toClient.writeBytes(response+"\n"); // Response
+                else if(response != null) toClient.writeBytes(response+"\n"); // Response
             }
             
             fromClient.close(); toClient.close(); client.close(); // End
@@ -53,14 +54,14 @@ public class TradeService extends Thread{
         }
     }
     
-    public String createOfferOrDemand(String line) {
+    public String createOfferOrDemand(String line, Socket client) {
     	String[] data = line.split("//");
     	if(data[1].equals("B") || data[1].equals("b")) {
-    		Action of = new Offer(data[2], Integer.parseInt(data[3]));
+    		Action of = new Offer(data[2], Integer.parseInt(data[3]), client);
     		MultithreadedTCPServer.offerList.add(of);
     		return runMechanism(of);
     	} else {
-    		Action de = new Demand(data[2], Integer.parseInt(data[3]));
+    		Action de = new Demand(data[2], Integer.parseInt(data[3]), client);
     		MultithreadedTCPServer.demandList.add(de);
     		return runMechanism(de);
     	}
@@ -71,20 +72,37 @@ public class TradeService extends Thread{
     		for (Iterator<Demand> i = MultithreadedTCPServer.demandList.iterator(); i.hasNext();) {
         	    Demand item = i.next();
         	    if(item.getActionLabel().equals(((Offer) act).getActionLabel())) {
-    				return "Successfully found a demand.";
+        	    	try {
+						DataOutputStream toClient = new DataOutputStream (item.client.getOutputStream());
+						toClient.writeBytes("Waiting for : Successfully buy " + item.getActionLabel() + " shares.");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+        	    	
+        	    	MultithreadedTCPServer.demandList.remove(item);
+    				return "Successfully sell " + ((Offer) act).getActionLabel() +" shares.";
     			}
         	}
     	} else {
     		for (Iterator<Offer> i = MultithreadedTCPServer.offerList.iterator(); i.hasNext();) {
     			Offer item = i.next();
         	    if(item.getActionLabel().equals(((Demand) act).getActionLabel())) {
-    				return "Successfully found an offer.";
+        	    	try {
+						DataOutputStream toClient = new DataOutputStream (item.client.getOutputStream());
+						toClient.writeBytes("Waiting for : Successfully sell " + item.getActionLabel() + " shares.");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+        	    	MultithreadedTCPServer.offerList.remove(item);
+    				return "Successfully buy " + ((Offer) act).getActionLabel() +" shares.";
     			}
         	}
     	}
     	
     			
-    	return "Matchmaking not found..";
+    	return null;
     }
 	
 }

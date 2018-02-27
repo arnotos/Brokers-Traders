@@ -1,3 +1,5 @@
+import java.net.Socket;
+
 /**
  * 
  */
@@ -14,8 +16,8 @@ public class Offer extends Action {
 	
 	
 	//constructor
-	public Offer(String actionLabel,  int quantity){
-		super();
+	public Offer(String actionLabel,  int quantity, Socket client){
+		super(client);
 		this.actionLabel = actionLabel;
 		this.quantity = quantity;
 	}
