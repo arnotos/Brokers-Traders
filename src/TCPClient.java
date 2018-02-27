@@ -28,7 +28,7 @@ public class TCPClient {
 
   public static void main(String[] args) throws Exception {
     //socket = new Socket("localhost", 9999);
-    socket = new Socket("172.17.2.6", 9999);
+    socket = new Socket("172.17.1.118", 9999);
 	  toServer = new DataOutputStream(     // Datastream FROM Server
       socket.getOutputStream());
     fromServer = new BufferedReader(     // Datastream TO Server
