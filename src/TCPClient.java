@@ -76,6 +76,7 @@ public class TCPClient {
         else
         {
         	System.out.println("Wrong action name !");
+        	continue;
         }
     }
 
