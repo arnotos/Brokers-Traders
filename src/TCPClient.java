@@ -20,8 +20,14 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Class to manage TCP Client
+ * @author William
+ *
+ */
 public class TCPClient {
 
+  // Attribut
   static String line;
   static Socket socket;
   static BufferedReader fromServer;
@@ -62,6 +68,12 @@ public class TCPClient {
     fromServer.close();
   }
 
+  /**
+   * Send a request to server
+   * @param clientMode : to send offer/demand or manual share
+   * @return : boolean = false when want to stop the communication with the server.
+   * @throws IOException
+   */
   private static boolean sendRequest(String clientMode) throws IOException {
     boolean holdTheLine = true;          // Connection exists
     String type;
@@ -200,6 +212,11 @@ public class TCPClient {
     return holdTheLine;
   }
 
+  /**
+   * Display the server's response
+   * 
+   * @throws IOException
+   */
   private static void receiveResponse() throws IOException {
     user.output("Server answers: " +
       new String(fromServer.readLine()) + '\n');

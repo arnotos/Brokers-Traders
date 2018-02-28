@@ -1,10 +1,7 @@
 import java.net.Socket;
 
 /**
- * 
- */
-
-/**
+ * Model Object Offer to sell stocks
  * @author laurent.freyss
  *
  */

@@ -25,6 +25,7 @@ public class MultithreadedTCPServer {
             System.out.println("Connection with: " +     // Output connection
                     client.getRemoteSocketAddress());   // (Client) address
             new TradeService(client).start();
+            
         }
     }
 }
