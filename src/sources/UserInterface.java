@@ -1,4 +1,5 @@
-//package examples;
+package sources;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import java.io.InputStreamReader;
  */
 
 public class UserInterface {
+	
+	static UserInterface user = new UserInterface();
 
   BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 

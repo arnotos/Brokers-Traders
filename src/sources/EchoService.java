@@ -1,4 +1,5 @@
-//package examples;
+package sources;
+
 
 // 22.10. 10
 
