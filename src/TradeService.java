@@ -71,11 +71,11 @@ public class TradeService extends Thread{
     public String createOfferOrDemand(String line) {
     	String[] data = line.split("//");
     	if(data[1].equals("B") || data[1].equals("b")) {
-    		Action of = new Offer(data[2], Integer.parseInt(data[3]), this);
+    		Action of = new Offer(data[2], Integer.parseInt(data[3]),Integer.parseInt(data[4]), this);
     		MultithreadedTCPServer.offerList.add(of);
     		return runMechanism(of);
     	} else {
-    		Action de = new Demand(data[2], Integer.parseInt(data[3]), this);
+    		Action de = new Demand(data[2], Integer.parseInt(data[3]),Integer.parseInt(data[4]), this);
     		MultithreadedTCPServer.demandList.add(de);
     		return runMechanism(de);
     	}

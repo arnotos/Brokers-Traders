@@ -13,8 +13,8 @@ public class Demand extends Action {
 	
 	
 	//constructor
-	public Demand(String actionLabel,  int quantity, TradeService client){
-		super(client);
+	public Demand(String actionLabel,  int quantity, int price, TradeService client){
+		super(client, price);
 		this.actionLabel = actionLabel;
 		this.quantity = quantity;
 	}
