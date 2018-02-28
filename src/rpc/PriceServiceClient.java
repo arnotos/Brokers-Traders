@@ -35,7 +35,7 @@ public class PriceServiceClient {
 		// setting the params
 		// Table of object needed to match the params of the functions.
 		Object[] params = new Object[] { type };
-		int result;
+		double result;
 		
 		user.output("To end the process type 'exit'\n");
 		while (true) {
@@ -45,7 +45,7 @@ public class PriceServiceClient {
 			if (type.equals("exit")) {
 				break;
 			}
-			result = (int) client.execute("Pricing.getPrice", params);
+			result = (double) client.execute("Pricing.getPrice", params);
 			user.output("Price result = " + result + "\n");
 		}
 		user.output("## PRICE SERVICE CLIENT END ##");

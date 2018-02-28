@@ -10,5 +10,7 @@
 /Offer.class
 /Action.class
 /Demand.class
-/ApacheMQ/
+/.gitignore
+/rpc/
+/tools/
 /sources/

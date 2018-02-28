@@ -12,11 +12,11 @@ public class Action {
 	// Attribut
 	private int id = 0;
 	TradeService client;
-	private int price;
+	private double price;
 	
 
 	// Constructor
-	public Action(TradeService client, int price) {
+	public Action(TradeService client, double price) {
 		this.id++;
 		this.client = client;
 		this.price = price;
@@ -33,11 +33,11 @@ public class Action {
 		this.client = client;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 }
