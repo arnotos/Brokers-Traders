@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class CSVTools
 {
-	static String name = "data.csv";
+	static String name =  "BrokerTraders.csv";
 	
 	public static void createFile()
 	{
@@ -65,57 +65,40 @@ public class CSVTools
             System.out.println("Error: " + e.getMessage());
         }
 	}
-
-	public static void main(String[] args)
-	{
-		createFile();
-		addRows("21//B//AZER//1234//1235.32");
-		addRows("22//B//AZER//1234//1235.32");
-		addRows("23//B//AZER//1234//1235.32");
-		
-		try {
-			ReadCSVWithScanner();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
-	public static void ReadCSVWithScanner() throws IOException
-	{
-		// open file input stream
-		BufferedReader reader = new BufferedReader(new FileReader(name));
-		// read file line by line
-		String line = null;
-		Scanner scanner = null;
-		int index = 0;
-		//List<Employee> empList = new ArrayList<>();
+	public static ArrayList<String[]> readCSV() {
+		String csvFile = name;
+		BufferedReader br = null;
+		String line = "";
+		String cvsSplitBy = ";";
+		ArrayList<String[]> allActionFromCsv = new ArrayList<String[]>();
+		try {
 
-		while ((line = reader.readLine()) != null) {
-			scanner = new Scanner(line);
-			scanner.useDelimiter(";");
-			while (scanner.hasNext()) {
-				String data = scanner.next();
-				/*if (index == 0)
-					emp.setId(Integer.parseInt(data));
-				else if (index == 1)
-					emp.setName(data);
-				else if (index == 2)
-					emp.setRole(data);
-				else if (index == 3)
-					emp.setSalary(data);
-				else
-					System.out.println("invalid data::" + data);
-				*/
-				//if(index == )
-				
-				index++;
-				System.out.println(data);
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+
+				// use comma as separator
+				String[] action = line.split(cvsSplitBy);
+				allActionFromCsv.add(action);
+				System.out.println("Action [code= " + action[1] + " , name=" + action[2] + " , quantity=" + action[3]
+						+ " , price=" + action[4] + "]");
+
 			}
-			index = 0;
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return allActionFromCsv;
 		}
-		
-		//close reader
-		reader.close();			
+
 	}
 }

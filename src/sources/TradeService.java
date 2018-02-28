@@ -8,6 +8,8 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import tools.CSVTools;
+
 /**
  * Service to manage the client's connections/sockets, offer and demand for shares/stosks and their responses
  * @author laurent.freyss
@@ -42,10 +44,12 @@ public class TradeService extends Thread{
             (new InputStreamReader(client.getInputStream()));
             
             this.setToClient(new DataOutputStream (client.getOutputStream())); // TO Client
-           
+            CSVTools.createFile();
             while(stop){     // repeat as long as connection exists
             	
             	 line = fromClient.readLine();              // Read Request
+
+            	 CSVTools.addRows(line);
             	 String response = createOfferOrDemand(line);
                  System.out.println("Received: "+ line);
                  
@@ -73,11 +77,11 @@ public class TradeService extends Thread{
     public String createOfferOrDemand(String line) {
     	String[] data = line.split("//");
     	if(data[1].equals("B") || data[1].equals("b")) {
-    		Action of = new Offer(data[2], Integer.parseInt(data[3]),Integer.parseInt(data[4]), this);
+    		Action of = new Offer(data[2], Integer.parseInt(data[3]),Double.parseDouble(data[4]), this);
     		MultithreadedTCPServer.offerList.add(of);
     		return runMechanism(of);
     	} else {
-    		Action de = new Demand(data[2], Integer.parseInt(data[3]),Integer.parseInt(data[4]), this);
+    		Action de = new Demand(data[2], Integer.parseInt(data[3]),Double.parseDouble(data[4]), this);
     		MultithreadedTCPServer.demandList.add(de);
     		return runMechanism(de);
     	}

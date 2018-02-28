@@ -2,11 +2,14 @@ package rpc;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.apache.xmlrpc.server.PropertyHandlerMapping;
 import org.apache.xmlrpc.server.XmlRpcServer;
 import org.apache.xmlrpc.server.XmlRpcServerConfigImpl;
 import org.apache.xmlrpc.webserver.WebServer;
+
+import tools.CSVTools;
 
 public class PriceServer implements IPrice {
 	
@@ -38,12 +41,18 @@ public class PriceServer implements IPrice {
   }
 
 @Override
-public int getPrice(String type) {
-	// TODO Auto-generated method stub
-	if(type.equals("apple"))
-		return 300;
-	else
-		return 0;
+public double getPrice(String type) {
+	ArrayList<String[]> actions = CSVTools.readCSV();
+	double maxPrice = 0;
+	for (Iterator<String[]> i = actions.iterator(); i.hasNext();) {
+		String[] item = i.next();
+		if (item[2].equals(type)) {
+			if (Double.parseDouble(item[4]) >= maxPrice) {
+				maxPrice = Double.parseDouble(item[4]);
+			}
+		}
+	}
+	return maxPrice;
 }
 
 @Override

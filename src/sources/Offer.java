@@ -15,7 +15,7 @@ public class Offer extends Action {
 	
 	
 	//constructor
-	public Offer(String actionLabel,  int quantity, int price, TradeService client){
+	public Offer(String actionLabel,  int quantity, double price, TradeService client){
 		super(client, price);
 		this.actionLabel = actionLabel;
 		this.quantity = quantity;

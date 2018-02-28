@@ -5,7 +5,7 @@ import java.util.Date;
 
 public interface IPrice {
 	
-	int getPrice(String type);
+	double getPrice(String name);
 	
 	ArrayList<Integer> getAllPrices(String type);
 	
