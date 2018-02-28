@@ -92,6 +92,11 @@ public class TCPClient {
 			{
 				break;
 			}
+			else if (line.equals("."))
+			{              // Does the user want to end the session?
+		        holdTheLine = false;
+		        return holdTheLine;
+		    }
 			else
 			{
 				user.output("Wrong action !");
@@ -206,9 +211,6 @@ public class TCPClient {
     trame = trame.getBytes("UTF-8").length + "//" + trame;
     
     toServer.writeBytes((line =  trame) + '\n');
-    if (line.equals(".")) {              // Does the user want to end the session?
-      holdTheLine = false;
-    }
     return holdTheLine;
   }
 
