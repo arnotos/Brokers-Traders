@@ -37,3 +37,7 @@ ehthumbs.db
 Thumbs.db
 .classpath
 .project
+
+# EXCEPTIONS #
+##############
+!lib/*.jar
