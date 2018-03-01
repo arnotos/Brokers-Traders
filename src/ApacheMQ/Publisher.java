@@ -33,7 +33,7 @@ class Publisher {
         int port = Integer.parseInt(env("ACTIVEMQ_PORT", "61616"));
         String destination = arg(args, 0, "event");
 
-        int messages = 20; // number of message is publishing
+        int messages = 10; // number of message is publishing
         	
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://" + host + ":" + port);
 
@@ -52,7 +52,7 @@ class Publisher {
                 System.out.println(String.format("Sent %d messages", i));
             }*/
             System.out.println(msg.getText().toString());
-            Thread.sleep(10000); // Wait 1s
+            Thread.sleep(5000); // Wait 1s
         }
 
         producer.send(session.createTextMessage("SHUTDOWN"));

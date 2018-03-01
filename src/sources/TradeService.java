@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import tools.CSVTools;
 
@@ -48,14 +49,16 @@ public class TradeService extends Thread{
             while(stop){     // repeat as long as connection exists
             	
             	 line = fromClient.readLine();              // Read Request
-
+            	 if (line.equals(".")) 
+                 	break;
+            	 Thread.sleep(new Random().nextInt(2000)+1000);
             	 CSVTools.addRows(line);
             	 String response = createOfferOrDemand(line);
                  System.out.println("Received: "+ line);
                  
                 
-                if (line.equals(".")) stop = false;   // Break Connection?
-                else if(response != null) {
+                
+                if(response != null) {
                 	this.getToClient().writeBytes(response + "\n");
                 }
                 
@@ -162,7 +165,7 @@ public class TradeService extends Thread{
     		// No offer so waiting for action
     		else {
     			waitForAction();
-    			return secondClientMessage;
+    			return null;
     		}
     		
     	}
@@ -174,10 +177,7 @@ public class TradeService extends Thread{
     public void waitForAction() {
     	synchronized(lock){
 	    	try {
-	    	
 	    		lock.wait();
-	    
-	
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	      }

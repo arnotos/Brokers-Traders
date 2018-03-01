@@ -95,6 +95,7 @@ public class TCPClientListener {
 				if ("SHUTDOWN".equals(body)) {
 					long diff = System.currentTimeMillis() - start;
 					System.out.println(String.format("Received %d in %.2f seconds", count, (1.0 * diff / 1000.0)));
+					toServer.writeBytes(".");
 					break;
 				} else {
 					//System.out.println(msg.toString());
@@ -125,6 +126,7 @@ public class TCPClientListener {
 				System.out.println("Unexpected message type: " + msg.getClass());
 			}
 		}
+		
 		socket.close();
 		toServer.close();
 		fromServer.close();
