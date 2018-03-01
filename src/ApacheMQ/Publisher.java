@@ -52,7 +52,7 @@ class Publisher {
                 System.out.println(String.format("Sent %d messages", i));
             }*/
             System.out.println(msg.getText().toString());
-            Thread.sleep(1000); // Wait 1s
+            Thread.sleep(10000); // Wait 1s
         }
 
         producer.send(session.createTextMessage("SHUTDOWN"));

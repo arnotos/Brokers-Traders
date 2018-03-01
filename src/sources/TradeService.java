@@ -127,7 +127,7 @@ public class TradeService extends Thread{
     		// No demand so waiting for action
     		else {
     			waitForAction();
-    			return secondClientMessage;
+    			return null;
     		}
     	}
     	// It's a demand so search an offer 
