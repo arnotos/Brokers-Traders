@@ -1,11 +1,11 @@
 sizeSocket;type;actionName;quantity;price
-<<<<<<< HEAD
 23;S;AAAA;1010;1000.0
 23;B;AAAA;1006;1000.0
 23;S;AAAA;1003;1000.0
 23;S;AAAA;1005;1000.0
 23;B;AAAA;1006;1000.0
 23;S;AAAA;1007;1000.0
+<<<<<<< HEAD
 =======
 >>>>>>> ac1521716ca3c4ad5011d0187fd7613734e45239
 22;S;IBM;1003;1000.0
@@ -156,3 +156,5 @@ sizeSocket;type;actionName;quantity;price
 23;B;AAAA;1000;1000.0
 23;S;AAAA;1004;1000.0
 22;S;IBM;1010;1000.0
+=======
+>>>>>>> 80e7e6fa393b607aa691093ec11bf43d03a05fc8

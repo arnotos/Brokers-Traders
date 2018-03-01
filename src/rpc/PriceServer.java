@@ -11,77 +11,104 @@ import org.apache.xmlrpc.webserver.WebServer;
 
 import tools.CSVTools;
 
+/**
+ * Additional module to our broker for RPC-XML send/receive about actions prices
+ * 
+ * You need to run it in additional.
+ * 
+ * @author arnaud lapenna
+ *
+ */
 public class PriceServer implements IPrice {
-	
-  private static final int port = 8080;
 
-  public static void main (String [] args) {
-    try {
+	private static final int port = 8080;
 
-      WebServer webServer = new WebServer(port);
+	public static void main(String[] args) {
+		try {
 
-      XmlRpcServer xmlRpcServer = webServer.getXmlRpcServer();
-      PropertyHandlerMapping phm = new PropertyHandlerMapping();
+			WebServer webServer = new WebServer(port);
 
-      phm.addHandler( "Pricing", PriceServer.class);
-      xmlRpcServer.setHandlerMapping(phm);
+			XmlRpcServer xmlRpcServer = webServer.getXmlRpcServer();
+			PropertyHandlerMapping phm = new PropertyHandlerMapping();
 
-     XmlRpcServerConfigImpl serverConfig =
-              (XmlRpcServerConfigImpl) xmlRpcServer.getConfig();
-     // serverConfig.setEnabledForExtensions(true);
-     // serverConfig.setContentLengthOptional(false);
+			phm.addHandler("Pricing", PriceServer.class);
+			xmlRpcServer.setHandlerMapping(phm);
 
-      webServer.start();
+			XmlRpcServerConfigImpl serverConfig = (XmlRpcServerConfigImpl) xmlRpcServer.getConfig();
+			// serverConfig.setEnabledForExtensions(true);
+			// serverConfig.setContentLengthOptional(false);
 
-      System.out.println("The Calculator Server has been started..." );
+			webServer.start();
 
-    } catch (Exception exception) {
-       System.err.println("JavaServer: " + exception);
-    }
-  }
+			System.out.println("The Calculator Server has been started...");
 
-@Override
-public double getPrice(String type) {
-	ArrayList<String[]> actions = CSVTools.readCSV();
-	double maxPrice = 0;
-	for (Iterator<String[]> i = actions.iterator(); i.hasNext();) {
-		String[] item = i.next();
-		if (item[2].equals(type)) {
-			if (Double.parseDouble(item[4]) >= maxPrice) {
-				maxPrice = Double.parseDouble(item[4]);
-			}
+		} catch (Exception exception) {
+			System.err.println("JavaServer: " + exception);
 		}
 	}
-	return maxPrice;
-}
 
-@Override
-public ArrayList<Integer> getAllPrices(String type) {
-	// TODO Auto-generated method stub
-	return null;
-}
+	@Override
+	public double getPrice(String type) {
+		ArrayList<String[]> actions = CSVTools.readCSV();
+		double maxPrice = 0;
+		for (Iterator<String[]> i = actions.iterator(); i.hasNext();) {
+			String[] item = i.next();
+			if (item[2].equals(type)) {
+				if (Double.parseDouble(item[4]) >= maxPrice) {
+					maxPrice = Double.parseDouble(item[4]);
+				}
+			}
+		}
+		return maxPrice;
+	}
 
-@Override
-public float getPricesbetween(String type, Date dateBegin, Date dateEnd) {
-	// TODO Auto-generated method stub
-	return 0;
-}
+	@Override
+	public ArrayList<Double> getAllPrices(String type) {
+		ArrayList<String[]> actions = CSVTools.readCSV();
+		ArrayList<Double> prices = new ArrayList<>();
+		for (Iterator<String[]> i = actions.iterator(); i.hasNext();) {
+			String[] item = i.next();
+			if (item[2].equals(type)) {
+				prices.add(Double.parseDouble(item[4]));
+			}
+		}
+		System.out.println(prices.toString());
+		return prices;
+	}
+	
+	
+	@Override
+	public double getHighestPrice(String type) {
+		ArrayList<String[]> actions = CSVTools.readCSV();
+		double maxPrice = 0;
+		for (Iterator<String[]> i = actions.iterator(); i.hasNext();) {
+			String[] item = i.next();
+			if (item[2].equals(type)) {
+				if (Double.parseDouble(item[4]) >= maxPrice) {
+					maxPrice = Double.parseDouble(item[4]);
+				}
+			}
+		}
+		return maxPrice;
+	}
 
-@Override
-public float getAveragePrice(String type) {
-	// TODO Auto-generated method stub
-	return 0;
-}
+	@Override
+	public float getPricesbetween(String type, Date dateBegin, Date dateEnd) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-@Override
-public int getLowestPrice(String type) {
-	// TODO Auto-generated method stub
-	return 0;
-}
+	@Override
+	public float getAveragePrice(String type) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-@Override
-public int getHighestPrice(String type) {
-	// TODO Auto-generated method stub
-	return 0;
-}
+	@Override
+	public int getLowestPrice(String type) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 }
