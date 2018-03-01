@@ -19,7 +19,7 @@ public class CSVTools
 	{
 		Boolean isAlreadyCreate = new File(name).isFile();
 		
-		if(isAlreadyCreate)
+		if(!isAlreadyCreate)
 		{
 			PrintWriter pw;
 			try {
