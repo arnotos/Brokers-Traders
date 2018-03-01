@@ -29,7 +29,7 @@ public class PriceServiceClient {
 		/**
 		 * @TODO change the serveur url
 		 **/
-		config.setServerURL(new URL("http://127.0.0.1:8080/xmlrpc"));
+		config.setServerURL(new URL("http://172.17.1.129:8080/xmlrpc"));
 		client.setConfig(config);
 
 		// setting the params
