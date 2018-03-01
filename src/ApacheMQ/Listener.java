@@ -27,7 +27,7 @@ class Listener {
 
         String user = env("ACTIVEMQ_USER", "admin");
         String password = env("ACTIVEMQ_PASSWORD", "password");
-        String host = env("ACTIVEMQ_HOST", "172.17.1.243");
+        String host = env("ACTIVEMQ_HOST", "localhost");
         int port = Integer.parseInt(env("ACTIVEMQ_PORT", "61616"));
         String destination = arg(args, 0, "event");
 

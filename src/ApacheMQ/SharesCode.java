@@ -1,5 +1,5 @@
 package ApacheMQ;
 
 public enum SharesCode {
-	AAPL,
+	AAAA,AAPL,IBM
 }

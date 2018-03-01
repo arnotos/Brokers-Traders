@@ -19,11 +19,13 @@ package ApacheMQ;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQTopic;
 
+import java.util.Random;
+
 import javax.jms.*;
 
 class Publisher {
 
-    public static void main(String []args) throws JMSException {
+    public static void main(String []args) throws JMSException, InterruptedException {
 
         String user = env("ACTIVEMQ_USER", "admin");
         String password = env("ACTIVEMQ_PASSWORD", "password");
@@ -31,15 +33,8 @@ class Publisher {
         int port = Integer.parseInt(env("ACTIVEMQ_PORT", "61616"));
         String destination = arg(args, 0, "event");
 
-        int messages = 10000;
-        int size = 256;
-
-        String DATA = "abcdefghijklmnopqrstuvwxyz";
-        String body = "";
-        for( int i=0; i < size; i ++) {
-            body += DATA.charAt(i%DATA.length());
-        }
-
+        int messages = 20; // number of message is publishing
+        	
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://" + host + ":" + port);
 
         Connection connection = factory.createConnection(user, password);
@@ -50,17 +45,32 @@ class Publisher {
         producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
         for( int i=1; i <= messages; i ++) {
-            TextMessage msg = session.createTextMessage(body);
+            TextMessage msg = session.createTextMessage(GeneratedNews());
             msg.setIntProperty("id", i);
             producer.send(msg);
-            if( (i % 1000) == 0) {
+            /*if( (i % 1000) == 0) {
                 System.out.println(String.format("Sent %d messages", i));
-            }
+            }*/
+            System.out.println(msg.getText().toString());
+            Thread.sleep(1000); // Wait 1s
         }
 
         producer.send(session.createTextMessage("SHUTDOWN"));
         connection.close();
 
+    }
+    
+    /**
+     * Generate news for the listeners
+     */
+    public static String GeneratedNews() {
+	    Random rand = new Random();
+	    
+	    int shareCode = rand.nextInt(SharesCode.values().length);
+	    
+	    int newType = rand.nextInt(NewsType.values().length);
+	    
+	    return NewsType.values()[newType].name() + " news about " + SharesCode.values()[shareCode].name();
     }
 
     private static String env(String key, String defaultValue) {

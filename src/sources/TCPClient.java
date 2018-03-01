@@ -56,11 +56,10 @@ public class TCPClient {
 	}
 	  
     //socket = new Socket("localhost", 9999);
-<<<<<<< HEAD
+
     socket = new Socket("172.17.1.57", 9999);
-=======
-    socket = new Socket("172.17.1.129", 9999);
->>>>>>> ac1521716ca3c4ad5011d0187fd7613734e45239
+
+
 	toServer = new DataOutputStream(     // Datastream FROM Server
     socket.getOutputStream());
     fromServer = new BufferedReader(     // Datastream TO Server
