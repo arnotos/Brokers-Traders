@@ -55,11 +55,9 @@ public class TCPClient {
 		}
 	}
 	  
-    //socket = new Socket("localhost", 9999);
 
-    socket = new Socket("172.17.1.57", 9999);
-
-
+    socket = new Socket("localhost", 9999);
+    //socket = new Socket("172.17.1.55", 9999);
 	toServer = new DataOutputStream(     // Datastream FROM Server
     socket.getOutputStream());
     fromServer = new BufferedReader(     // Datastream TO Server
