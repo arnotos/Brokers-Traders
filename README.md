@@ -59,3 +59,9 @@ Second TCPClientListener bash :
 Then launch 1 ApacheMQ->Publisher.java
 
 The News are catching by TCPClientListeners and deal between first and second trader can be done.
+
+# Group
+- Arnaud LAPENNA
+- Laurent FREYSS
+- William MULLER
+- Jean STILL
