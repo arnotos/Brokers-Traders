@@ -47,6 +47,9 @@ public class PriceServer implements IPrice {
 		}
 	}
 
+	/**
+	 * Return the higher price for the stock in parameter
+	 */
 	@Override
 	public double getPrice(String type) {
 		ArrayList<String[]> actions = CSVTools.readCSV();
@@ -62,6 +65,9 @@ public class PriceServer implements IPrice {
 		return maxPrice;
 	}
 
+	/**
+	 * Return all prices for the stock in parameter
+	 */
 	@Override
 	public ArrayList<Double> getAllPrices(String type) {
 		ArrayList<String[]> actions = CSVTools.readCSV();
@@ -76,7 +82,9 @@ public class PriceServer implements IPrice {
 		return prices;
 	}
 	
-	
+	/**
+	 * Return the higher price for the stock in parameter
+	 */
 	@Override
 	public double getHighestPrice(String type) {
 		ArrayList<String[]> actions = CSVTools.readCSV();

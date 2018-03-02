@@ -187,7 +187,7 @@ public class TCPClientListener {
 
 		actionName = bodySplit[3];
 		quantity = ThreadLocalRandom.current().nextInt(1000, 1010 + 1);
-		price = 1000;
+		price = ThreadLocalRandom.current().nextInt(800, 1010 + 1);
 
 		// After verification
 		trame = type + "//" + actionName + "//" + quantity + "//" + price + "//";
