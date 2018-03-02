@@ -1,7 +1,7 @@
 # Brokers-Traders
 Brokers&amp;Traders Darmstadt TP. Java projects with clients and servers talking to each other to simulate distributed systems
 
-#Exercise 1
+# Exercise 1
 ## Test the application
 Launch one sources->MultithreadedTCPServer.java
 Launch two or more sources->TCPClient.java
@@ -17,7 +17,7 @@ Second TCPClient bash :
 With the option "m", you can choose your stock, quantity and price.
 
 
-#Exercise 2
+# Exercise 2
 ## Test the application
 Launch one rpc->PriceServer.java
 Launch two or more rpc->PriceServiceClient.java
@@ -35,7 +35,7 @@ Second PriceServiceClient bash :
 - Press enter.
 
 
-#Exercise 3
+# Exercise 3
 ## Test the application
 Download ApacheMQ : http://activemq.apache.org/activemq-5153-release.html
 Extract it.
