@@ -50,11 +50,11 @@ ApacheMQ is running.
 
 First TCPClientListener bash : 
 - Write "a" for acyclic trader.
-- Press enter to connect to the broker.
+- Press enter to connect to the broker and to subscribe.
 
 Second TCPClientListener bash : 
 - Write "c" cyclic trader.
-- Press enter to connect to the broker.
+- Press enter to connect to the broker and to subscribe.
 
 Then launch 1 ApacheMQ->Publisher.java
 
