@@ -3,8 +3,8 @@ Brokers&amp;Traders Darmstadt TP. Java projects with clients and servers talking
 
 # Exercise 1
 ## Test the application
-Launch one sources->MultithreadedTCPServer.java
-Launch two or more sources->TCPClient.java
+- Launch one sources->MultithreadedTCPServer.java
+- Launch two or more sources->TCPClient.java
 
 First TCPClient bash : 
 - Write "b" to buy stock automatically.
@@ -19,8 +19,8 @@ With the option "m", you can choose your stock, quantity and price.
 
 # Exercise 2
 ## Test the application
-Launch one rpc->PriceServer.java
-Launch two or more rpc->PriceServiceClient.java
+- Launch one rpc->PriceServer.java
+- Launch two or more rpc->PriceServiceClient.java
 
 First PriceServiceClient bash : 
 - Write "a" to get the actual price.
@@ -37,16 +37,16 @@ Second PriceServiceClient bash :
 
 # Exercise 3
 ## Test the application
-Download ApacheMQ : http://activemq.apache.org/activemq-5153-release.html
-Extract it.
-WARNING : the file path doesn't contain a space !
-Move in directory apache-activemq-5.15.3 and run a console.
-Launch "bin/activemq start" command.
+- Download ApacheMQ : http://activemq.apache.org/activemq-5153-release.html
+- Extract it.
+- WARNING : the file path doesn't contain a space !
+- Move in directory apache-activemq-5.15.3 and run a console.
+- Launch "bin/activemq start" command.
 
 ApacheMQ is running.
 
-Launch one sources->MultithreadedTCPServer.java
-Launch two(2*) ApacheMQ->TCPClientListener.java
+- Launch one sources->MultithreadedTCPServer.java
+- Launch two(2*) ApacheMQ->TCPClientListener.java
 
 First TCPClientListener bash : 
 - Write "a" for acyclic trader.
